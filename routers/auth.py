@@ -1,5 +1,6 @@
 from functools import wraps
 from typing import Optional
+from dotenv import load_dotenv
 from fastapi import Depends, HTTPException, status, APIRouter, Request, Response, Form
 from passlib.context import CryptContext
 from jose import jwt, JWTError
@@ -17,6 +18,7 @@ router = APIRouter(
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="access_token")
 
+load_dotenv()
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
 
@@ -73,7 +75,6 @@ async def get_current_user(token: str):
         if token is None:
             return None
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        print("PAYLOAD ------------>", payload)
         email: str = payload.get("sub")
         user_id: str = payload.get("id")
         if email is None or user_id is None:
