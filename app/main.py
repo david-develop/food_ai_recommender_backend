@@ -1,14 +1,15 @@
 import os
 from dotenv import load_dotenv
 from fastapi import FastAPI
-from food_api.database.database import get_mongo_client
-from food_api.routers import recipes, food_gpt, auth
+from database.database import get_mongo_client
+from routers import recipes, food_gpt, auth
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 
 
-app = FastAPI(debug=True)
-load_dotenv()
+app = FastAPI()
+if os.getenv("ENV", "PROD") == "DEV":
+    load_dotenv()
 
 app.include_router(auth.router)
 app.include_router(recipes.router)
@@ -19,7 +20,6 @@ origins = [
     "http://localhost",
     "http://localhost:3000",
     "http://localhost:8000",
-    "http://localhost:8015",
     # Add more allowed origins as needed
 ]
 
@@ -50,6 +50,3 @@ async def startup():
 async def shutdown():
     app.mongodb = None
 
-
-if __name__ == "__main__":
-    uvicorn.run("food_api.app.main:app", host="localhost", port=8000, reload=True)

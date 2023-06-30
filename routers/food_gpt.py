@@ -2,10 +2,10 @@ from fastapi import Form, HTTPException, Request, APIRouter, Depends, status
 import openai
 import os
 
-from food_api.database.models import Recipe
-from ..utils import generate_prompt
+from database.models import Recipe
+from utils import generate_prompt
 from fastapi.responses import JSONResponse
-from food_api.routers.auth import get_current_user, oauth2_scheme
+from routers.auth import get_current_user, oauth2_scheme
 
 router = APIRouter(
     prefix="/food-gpt",

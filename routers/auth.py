@@ -7,7 +7,7 @@ import os
 from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from pydantic import ValidationError
-from food_api.database.models import UserSignUp, User
+from database.models import UserSignUp, User
 
 
 router = APIRouter(

@@ -2,9 +2,9 @@ from bson.objectid import ObjectId
 from fastapi import APIRouter, Depends, HTTPException, status, Request
 from fastapi.responses import JSONResponse
 from typing import List
-from food_api.database.models import Cuisine, Ingredient, FoodType
-from food_api.routers.auth import admin_only, get_current_user, oauth2_scheme
-from food_api.utils import change_object_id_to_string
+from database.models import Cuisine, Ingredient, FoodType
+from routers.auth import admin_only, get_current_user, oauth2_scheme
+from utils import change_object_id_to_string
 
 router = APIRouter(
     prefix="/recipes",
